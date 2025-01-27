@@ -10,3 +10,12 @@ const pool = new Pool({
 })
 
 module.exports = pool 
+
+/* Ania's code
+ const pool = new Pool
+ ({user: '',
+ password: '',
+ host: 'localhost',
+ port: 5432,
+ database: 'todoapp'
+}) */

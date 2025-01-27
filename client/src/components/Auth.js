@@ -1,7 +1,7 @@
 const Auth = () => {
     return (
       <div>
-        Communism will win
+        
       </div>
     )
   }
