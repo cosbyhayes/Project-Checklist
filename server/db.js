@@ -1,15 +1,26 @@
-const Pool = require('pg').Pool
-require('dotenv').config()
+const mysql = require('mysql2/promise');
+require('dotenv').config();
 
-const pool = new Pool({
-    user: process.env.USERNAME,
-    password: process.env.PASSWORD,
-    host: process.env.HOST,
-    port: process.env.DBPORT,
-    database: 'deployed_to_do_list'
-})
+const pool = mysql.createPool({
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME || 'todo_app', // Use your desired database name
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
-module.exports = pool 
+pool.getConnection()
+  .then((connection) => {
+    console.log('✅ Connected to MySQL database!');
+    connection.release();
+  })
+  .catch((err) => {
+    console.error('❌ MySQL connection error:', err);
+  });
+
+module.exports = pool;
 
 /* Ania's code
  const pool = new Pool
